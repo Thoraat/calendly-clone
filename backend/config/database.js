@@ -51,7 +51,10 @@ function parseDatabaseUrl(url) {
                 waitForConnections: true,
                 connectionLimit: 10,
                 queueLimit: 0,
-                ssl: hasSSL ? { rejectUnauthorized: false } : false
+                // ssl: hasSSL ? { rejectUnauthorized: false } : false
+                ssl: {
+                    rejectUnauthorized: false
+                }
             };
         }
         
@@ -81,7 +84,11 @@ function parseDatabaseUrl(url) {
             waitForConnections: true,
             connectionLimit: 10,
             queueLimit: 0,
-            ssl: hasSSL ? { rejectUnauthorized: false } : false
+            // ssl: hasSSL ? { rejectUnauthorized: false } : false
+            ssl: {
+                rejectUnauthorized: false
+            }
+            
         };
     } catch (error) {
         console.error('❌ Error parsing DATABASE_URL:', error.message);
