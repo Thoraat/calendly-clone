@@ -1,6 +1,13 @@
 # Calendly Clone - Full-Stack Scheduling Application
 
-A production-ready, full-stack scheduling web application similar to Calendly, built with React and Node.js.
+A production-ready, full-stack scheduling web application similar to Calendly, built with React (Vite) + React Router on the frontend and Node.js (Express) + MySQL on the backend.
+
+## Deployment Architecture
+
+- **Frontend**: Vercel (React SPA)
+- **Backend API**: Railway (Express)
+- **Database**: Railway managed MySQL
+- **Communication**: Frontend calls backend via REST APIs (Axios). Backend reads/writes MySQL.
 
 ## Features
 
@@ -54,6 +61,7 @@ scaler/
 │   └── server.js                 # Express server setup
 │
 ├── frontend/
+│   ├── vercel.json               # Vercel SPA rewrite for React Router (IMPORTANT)
 │   ├── src/
 │   │   ├── api/                  # API client functions
 │   │   ├── components/
@@ -71,27 +79,48 @@ scaler/
 
 ### Prerequisites
 - Node.js (v16 or higher)
-- MySQL (v8.0 or higher)
+- MySQL (v8.0 or higher) for **local development** (Railway provides MySQL in production)
 - npm or yarn
 
-### Database Setup
+### Database Setup (Railway MySQL vs Local)
 
-1. **Create the database:**
-   ```bash
-   mysql -u root -p < backend/database/schema.sql
-   ```
-   Or manually run the SQL file in your MySQL client.
+#### Railway (Production)
 
-2. **Configure database connection:**
-   Create a `.env` file in the `backend` directory:
-   ```env
-   DB_HOST=localhost
-   DB_USER=root
-   DB_PASSWORD=your_password
-   DB_NAME=calendly_clone
-   DB_PORT=3306
-   PORT=3001
-   ```
+- Railway **auto-creates** the database when you add the MySQL service.
+- **Do not** run `CREATE DATABASE ...` or `USE ...` in production.
+- Ensure tables exist by applying **only table DDL** (e.g., `CREATE TABLE IF NOT EXISTS ...`).
+- The **database name and credentials come from Railway environment variables**, exposed to the backend as `MYSQL_URL`/`DATABASE_URL`.
+
+**Note:** When using Railway MySQL, do not create or switch databases manually.
+
+#### Local Development
+
+You can use `backend/database/schema.sql` to create tables locally. If your local workflow uses `CREATE DATABASE` / `USE`, that’s fine locally—just don’t use those statements on Railway.
+
+### Environment Variables
+
+#### Backend (`backend/`)
+
+**Production (Railway):**
+- Uses **`MYSQL_URL`** or **`DATABASE_URL`** provided automatically by Railway when the MySQL service is attached.
+- No Railway MySQL service variables need to be manually edited.
+
+**Local development (`backend/.env`):**
+
+```env
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=your_password
+DB_NAME=calendly_clone
+DB_PORT=3306
+PORT=3001
+NODE_ENV=development
+```
+
+#### Frontend (`frontend/`)
+
+- `VITE_API_URL` (recommended): base URL of your Railway backend, e.g. `https://YOUR_BACKEND.up.railway.app/api`
+- If omitted locally, Vite dev proxy (`frontend/vite.config.js`) can proxy `/api` to `http://localhost:3001`.
 
 ### Backend Setup
 
@@ -134,6 +163,25 @@ scaler/
    ```
 
    The frontend will run on `http://localhost:3000`
+
+## Vercel Routing Fix for React Router (IMPORTANT)
+
+React Router routes like `/book/:slug` work locally, but **Vercel will return 404 on refresh/direct navigation** unless you configure rewrites (because it’s a SPA).
+
+This project fixes it by adding `frontend/vercel.json` with the following rewrite rule (exact):
+
+```json
+{
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+```
+
+This ensures **all routes serve `index.html`**, and React Router handles routing client-side.
 
 ## API Documentation
 
@@ -339,9 +387,8 @@ Body: {
 ## Troubleshooting
 
 ### Database Connection Issues
-- Verify MySQL is running
-- Check `.env` file has correct credentials
-- Ensure database exists and schema is created
+- **Local**: verify MySQL is running, `.env` is set, and tables exist.
+- **Railway**: verify the MySQL service is attached and `MYSQL_URL`/`DATABASE_URL` is present in the backend environment.
 
 ### Port Already in Use
 - Change `PORT` in backend `.env` file
@@ -350,6 +397,12 @@ Body: {
 ### Timezone Issues
 - Ensure `moment-timezone` is installed in both frontend and backend
 - Verify timezone strings are valid IANA timezone identifiers
+
+## Known Issues (Resolved)
+
+- ❌ **ER_NO_SUCH_TABLE** – fixed by aligning Railway MySQL database with the schema (tables created in the Railway-managed DB).
+- ❌ **404 on `/book/:slug` (Vercel)** – fixed with the `vercel.json` SPA rewrite rule.
+- ❌ **Database mismatch (Railway vs local DB)** – resolved by documenting and supporting Railway `MYSQL_URL`/`DATABASE_URL` in production and `DB_*` vars locally.
 
 ## License
 
