@@ -1,0 +1,143 @@
+.event-types-manager {
+  max-width: 1000px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.section-header h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.form-card {
+  margin-bottom: 24px;
+}
+
+.form-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: var(--text-primary);
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: var(--text-primary);
+}
+
+.form-group small {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.event-types-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.event-type-card {
+  transition: box-shadow 0.2s;
+}
+
+.event-type-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.event-type-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.event-type-info {
+  display: flex;
+  gap: 16px;
+  flex: 1;
+}
+
+.event-type-color {
+  width: 4px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.event-type-info h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--text-primary);
+}
+
+.event-type-meta {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.event-type-description {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-top: 8px;
+}
+
+.event-type-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-secondary);
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .event-type-header {
+    flex-direction: column;
+  }
+  
+  .event-type-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+  
+  .event-type-actions .btn {
+    width: 100%;
+  }
+}

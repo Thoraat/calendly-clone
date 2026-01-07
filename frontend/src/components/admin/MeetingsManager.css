@@ -1,0 +1,139 @@
+.meetings-manager {
+  max-width: 1000px;
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 8px;
+}
+
+.filter-tabs button {
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-tabs button:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.filter-tabs button.active {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.meetings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.meeting-card {
+  transition: box-shadow 0.2s;
+}
+
+.meeting-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.meeting-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.meeting-info h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.meeting-meta {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.meeting-duration {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.meeting-status {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.status-scheduled {
+  background: #DBEAFE;
+  color: #1E40AF;
+}
+
+.status-cancelled {
+  background: #FEE2E2;
+  color: #991B1B;
+}
+
+.status-completed {
+  background: #D1FAE5;
+  color: #065F46;
+}
+
+.meeting-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  margin-bottom: 16px;
+}
+
+.detail-item {
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.detail-item strong {
+  color: var(--text-secondary);
+  margin-right: 8px;
+}
+
+.detail-item a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.detail-item a:hover {
+  text-decoration: underline;
+}
+
+.meeting-actions {
+  display: flex;
+  gap: 12px;
+}
+
+@media (max-width: 768px) {
+  .meeting-header {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .meeting-status {
+    align-self: flex-start;
+  }
+}

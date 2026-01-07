@@ -1,0 +1,87 @@
+.availability-manager {
+  max-width: 800px;
+}
+
+.availability-schedule {
+  margin-top: 24px;
+}
+
+.availability-schedule h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.help-text {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+
+.days-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.day-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+}
+
+.day-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.day-checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.day-checkbox label {
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--text-primary);
+}
+
+.day-times {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.time-input {
+  width: 120px;
+}
+
+.time-separator {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  .day-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .day-times {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  
+  .time-input {
+    flex: 1;
+  }
+}
