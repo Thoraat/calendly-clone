@@ -1,8 +1,8 @@
 -- Calendly Clone Database Schema
 -- Run this script to create the database and tables
 
-CREATE DATABASE IF NOT EXISTS calendly_clone;
-USE calendly_clone;
+CREATE DATABASE IF NOT EXISTS railway;
+USE railway;
 
 -- Event Types Table
 -- Stores different types of events that can be booked (e.g., "30-min Meeting", "1-hour Consultation")
