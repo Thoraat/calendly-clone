@@ -18,8 +18,25 @@ router.get('/', async (req, res) => {
         );
         res.json(eventTypes);
     } catch (error) {
-        console.error('Error fetching event types:', error);
-        res.status(500).json({ error: 'Failed to fetch event types' });
+        // Enhanced error logging for production debugging
+        console.error('Error fetching event types:', {
+            message: error.message,
+            code: error.code,
+            errno: error.errno,
+            sqlState: error.sqlState,
+            stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+        });
+        
+        // Return more detailed error in development, generic in production
+        const errorMessage = process.env.NODE_ENV === 'development' 
+            ? `Failed to fetch event types: ${error.message}` 
+            : 'Failed to fetch event types';
+        
+        res.status(500).json({ 
+            error: errorMessage,
+            code: error.code,
+            ...(process.env.NODE_ENV === 'development' && { details: error.message })
+        });
     }
 });
 
